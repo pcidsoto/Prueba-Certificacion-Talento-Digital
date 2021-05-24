@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Registro {% endblock %}
+
+{% block contenidos %}
+<div class="container mt-5 text-center">
+    <h1 class="mt-5">{{hotel.nombre}}</h1>
+    <h5>direccion</h5>
+
+    <form class="mt-5" method="POST" action="" novalidate>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-success" value="Enviar">
+    </form>
+</div>
+{% endblock %}

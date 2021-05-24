@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Hotel Advisor {% endblock %}
+
+{% block contenidos %}
+<div class="container-fluid mt-3">
+    <div class="row p-2">
+      
+      <div class="col-md-2 col-lg-2">
+        
+        <div class="row">
+
+          <div class="card">
+            <h4 class="card-title"> Calificación</h4>
+            <form method="POST" action="{% url 'app1:index' %}">
+              {% csrf_token %}
+              <input type="hidden" name="estrellas" id="estrellas" value=5>
+              <input type="submit" value="5 Estrellas">
+            </form>
+            <form method="POST" action="{% url 'app1:index' %}">
+              {% csrf_token %}
+              <input type="hidden" name="estrellas" id="estrellas" value=4>
+              <input type="submit" value="4 Estrellas">
+            </form>
+            <form method="POST" action="{% url 'app1:index' %}">
+              {% csrf_token %}
+              <input type="hidden" name="estrellas" id="estrellas" value=3>
+              <input type="submit" value="3 Estrellas">
+            </form>
+            <form method="POST" action="{% url 'app1:index' %}">
+              {% csrf_token %}
+              <input type="hidden" name="estrellas" id="estrellas" value=2>
+              <input type="submit" value="2 Estrellas">
+            </form>
+            <form method="POST" action="{% url 'app1:index' %}">
+              {% csrf_token %}
+              <input type="hidden" name="estrellas" id="estrellas" value=1>
+              <input type="submit" value="1 Estrellas">
+            </form>
+            <form method="POST" action="{% url 'app1:index' %}">
+              {% csrf_token %}
+              <input type="hidden" name="estrellas" id="estrellas" value=0>
+              <input type="submit" value="0 Estrellas">
+            </form>
+          </div>
+          <div class="card mt-5">
+            <h4 class="card-title"> Ordernar por</h4>
+            <form method="POST" action="{% url 'app1:index' %}">
+              {% csrf_token %}
+              <input type="hidden" name="nombre" id="nombre" value='nombre'>
+              <input type="submit" value="nombre">
+            </form>
+            <form method="POST" action="{% url 'app1:index' %}">
+              {% csrf_token %}
+              <input type="hidden" name="calificacion" id="calificacion" value='calificacion'>
+              <input type="submit" value="Calificación">
+            </form>
+            <form method="POST" action="{% url 'app1:index' %}">
+              {% csrf_token %}
+              <input type="hidden" name="cant_votos" id="cant_votos" value='cant_votos'>
+              <input type="submit" class="" value="Cant Votos">
+            </form>
+          </div>
+
+        </div>
+      </div>
+      <div class=" col-md-10 col-lg-10">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+              {% for hotel in hoteles %}
+              <div class="card card-hotel mb-3 mt-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <img src="https://picsum.photos/seed/picsum/200/300" alt="lorem-picsum">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body ps-4">
+                      <h5 class="card-title">{{hotel.nombre}}</h5>
+                      <p class="text-center">{{hotel.calificacion}}| estrellas | {{hotel.cant_votos}}</p>
+                      
+                      <small class="card-text">{{hotel.descripcion|truncatechars:150}}</small>
+                      <br>
+                      <br>
+                      <small class="card-text">Dirección</small>
+                      <p class="text-center"> <a href="{% url 'app1:detalle_hotel' pk=hotel.id %}">Ver Ficha</a> </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="col-md-6 col-lg-6">
+              {% for comentario in comentarios %}
+              <div class="d-flex p-3 mt-3">
+                  <img src="https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375_960_720.png" alt="John Doe"
+                       class="flex-shrink-0 me-3 mt-3 rounded-circle" style="width:60px;height:60px;">
+                  <div>
+                      <small class="text-end"></small>
+                      <p class="text-end">{{comentario.hotel.nombre|truncatechars:20 }} | {{comentario.puntuacion}} | {{comentario.nombre_usuario}} |{{comentario.fecha}}</p>
+                      <h6>{{comentario.nombre_usuario}}</h6>
+                      <p>{{comentario.comentario}}</p>
+                  </div>
+              </div>
+              {% endfor %}
+            </div>
+        
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+{% endblock %}

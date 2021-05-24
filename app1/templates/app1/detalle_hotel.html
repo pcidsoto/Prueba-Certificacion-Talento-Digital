@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Detalle Hotel {% endblock %}
+
+{% block contenidos %}
+<div class="container mt-3">
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <img src="https://picsum.photos/seed/picsum/354/400" alt="lorem-picsum">
+            <br>
+            <br>
+            {% if user.is_authenticated %}
+            <div class="d-grid gap-2">
+                <a type="button" class="button-radius btn btn-warning btn-lg" href="{% url 'app1:comentar' id=detalle_hotel.id %}"> Calificar </a>
+            </div>
+            {% else %}
+            <div class="d-grid gap-2">
+                Registrate para calificar a éste hotel! 
+                <a type="button" class="button-radius btn btn-outline-success btn-lg"> Registrar </a>
+            </div>
+
+            {% endif %}
+        </div>
+        <div class="col-md-8 ps-4">
+            <h1>{{detalle_hotel.nombre}}</h1>
+            <h3 class="text-center" >{{detalle_hotel.calificacion}} | estrellas | {{detalle_hotel.cant_votos}}</h3>
+            <p>{{detalle_hotel.descripcion}}</p>
+
+            {% for atributo in atributos_hotel %}
+                <p><strong>{{atributo.atributo}}:</strong> {{atributo.valor_atributo}}</p>
+            {% endfor %}
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <h1>Comentarios</h1>
+        {% for comentario in comentarios %}
+        <div class="d-flex p-3 mt-3">
+            <img src="https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375_960_720.png" alt="John Doe"
+                 class="flex-shrink-0 me-3 mt-3 rounded-circle" style="width:60px;height:60px;">
+            <div>
+                <small class="text-end"></small>
+                <p class="text-end">{{comentario.puntuacion}} | {{comentario.fecha}}</p>
+                <h6>{{comentario.nombre_usuario}}</h6>
+                <p>{{comentario.comentario}}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}
